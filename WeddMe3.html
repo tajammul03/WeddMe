@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeddMe Belgaum | 360° Wedding Directory</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Brand Palette: Navy (#1B2B41), Gold (#C5A059), Blush (#F2D1C9), Light (#FDFBF9) */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:#FDFBF9;color:#1B2B41; line-height: 1.6;}
+
+/* Header */
+header{background:#fff; text-align:center; padding: 25px 20px; border-bottom: 1px solid #eee;}
+.logo-area img {height:80px;}
+.tagline {font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #C5A059; font-weight: 700; margin-top:5px;}
+
+/* TWO-LEVEL NAVIGATION */
+.nav-wrapper {background: #fff; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #C5A059; box-shadow: 0 4px 15px rgba(0,0,0,0.05);}
+
+/* Main Groups */
+.main-cats {display: flex; justify-content: center; gap: 5px; background: #1B2B41; padding: 10px 0; overflow-x: auto; -webkit-overflow-scrolling: touch;}
+.main-btn {background: transparent; border: none; color: #fff; padding: 10px 18px; cursor: pointer; font-size: 13px; opacity: 0.7; transition: 0.3s; white-space: nowrap;}
+.main-btn:hover, .main-btn.active {opacity: 1; color: #C5A059; font-weight: 600;}
+
+/* Sub Categories Area */
+.sub-cats-area {background: #fff; padding: 15px 5%; display: none; text-align: center; border-bottom: 1px solid #eee; flex-wrap: wrap; justify-content: center;}
+.sub-cats-area.active {display: flex; animation: fadeIn 0.4s ease-out;}
+.sub-btn {background: #fff; border: 1px solid #F2D1C9; padding: 6px 14px; margin: 4px; border-radius: 4px; cursor: pointer; font-size: 12px; color: #1B2B41; transition: 0.2s;}
+.sub-btn:hover, .sub-btn.active {background: #1B2B41; color: #fff; border-color: #1B2B41;}
+
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+/* Search Bar */
+.search-container {padding: 30px 10% 10px; text-align: center;}
+.search-input {width: 100%; max-width: 500px; padding: 12px 25px; border: 1px solid #ddd; border-radius: 30px; outline: none; font-size: 14px;}
+
+/* Vendors Grid */
+section.vendor-section {padding: 40px 8%; min-height: 500px;}
+.vendors-grid {display: grid; gap: 25px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));}
+.v-card {background: #fff; border: 1px solid #eee; border-radius: 6px; overflow: hidden; transition: 0.3s;}
+.v-card:hover {transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08);}
+.v-card img {width: 100%; height: 200px; object-fit: cover;}
+.v-info {padding: 20px;}
+.cat-pill {background: #FDFBF9; color: #C5A059; font-size: 9px; font-weight: 700; padding: 2px 8px; border: 1px solid #F2D1C9; text-transform: uppercase;}
+.v-info h3 {margin: 10px 0 5px; font-family: 'Playfair Display', serif; font-size: 1.3rem;}
+.v-info p {font-size: 12px; color: #777; margin-bottom: 15px;}
+.contact-btn {display: block; text-align: center; background: #1B2B41; color: #fff; padding: 10px; text-decoration: none; font-size: 13px; font-weight: 500;}
+
+/* --- Concierge Section Styling --- */
+.concierge-wrap {
+    background: #1B2B41;
+    background-image: linear-gradient(rgba(27, 43, 65, 0.92), rgba(27, 43, 65, 0.92)), 
+                      url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200');
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 80px 10%;
+    color: #fff;
+    margin-top: 40px;
+}
+.concierge-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; max-width: 1200px; margin: 0 auto;
+}
+.concierge-text h2 { font-size: 42px; color: #C5A059; margin-bottom: 20px; font-family: 'Playfair Display'; }
+.concierge-text p { font-size: 17px; opacity: 0.9; margin-bottom: 30px; }
+.trust-points { list-style: none; }
+.trust-points li { margin-bottom: 12px; display: flex; align-items: center; font-size: 14px; color: #F2D1C9; }
+.trust-points li::before { content: "✦"; margin-right: 10px; color: #C5A059; }
+
+.concierge-form-card { background: #fff; padding: 40px; border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
+.concierge-form-card h3 { color: #1B2B41; font-size: 22px; margin-bottom: 25px; text-align: center; font-family: 'Playfair Display'; }
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; font-size: 11px; text-transform: uppercase; color: #999; margin-bottom: 5px; font-weight: 600; }
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 10px 0; border: none; border-bottom: 1px solid #ddd; font-family: 'Poppins'; font-size: 14px; outline: none; transition: 0.3s;
+}
+.form-group input:focus { border-bottom: 2px solid #C5A059; }
+.btn-submit-luxury {
+    background: #1B2B41; color: #fff; border: none; padding: 16px; width: 100%; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.4s;
+}
+.btn-submit-luxury:hover { background: #C5A059; transform: translateY(-2px); }
+
+footer {background: #0d1621; color: #fff; text-align: center; padding: 40px; font-size: 11px; border-top: 4px solid #C5A059;}
+
+@media (max-width: 968px) {
+    .concierge-grid { grid-template-columns: 1fr; gap: 40px; }
+    .concierge-text { text-align: center; }
+    .trust-points li { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo-area">
+        <img src="C:\Users\PEA4KOR\Downloads\ChatGPT Image Jan 15, 2026, 12_37_08 AM.png" alt="WeddMe Logo">
+        <p class="tagline">Belgaum's Master Wedding Ecosystem</p>
+    </div>
+</header>
+
+<div class="nav-wrapper">
+    <div class="main-cats">
+        <button class="main-btn active" onclick="showSub('all', this)">All</button>
+        <button class="main-btn" onclick="showSub('venue', this)">Venues & Decor</button>
+        <button class="main-btn" onclick="showSub('food', this)">Catering & Drinks</button>
+        <button class="main-btn" onclick="showSub('media', this)">Photo & Media</button>
+        <button class="main-btn" onclick="showSub('beauty', this)">Beauty & Style</button>
+        <button class="main-btn" onclick="showSub('transport', this)">Transport</button>
+        <button class="main-btn" onclick="showSub('rituals', this)">Rituals & Govt</button>
+        <button class="main-btn" onclick="showSub('rentals', this)">Rentals & Essentials</button>
+        <button class="main-btn" onclick="showSub('leisure', this)">Leisure & Gifts</button>
+    </div>
+
+    <div id="sub-venue" class="sub-cats-area">
+        <button class="sub-btn" onclick="filterVendors('hall')">Marriage Halls</button>
+        <button class="sub-btn" onclick="filterVendors('lawn')">Lawns</button>
+        <button class="sub-btn" onclick="filterVendors('decorator')">Decorators</button>
+        <button class="sub-btn" onclick="filterVendors('florist')">Florist</button>
+        <button class="sub-btn" onclick="filterVendors('lights')">Lighting</button>
+        <button class="sub-btn" onclick="filterVendors('firecrackers')">Fire Crackers</button>
+    </div>
+    <div id="sub-food" class="sub-cats-area">
+        <button class="sub-btn" onclick="filterVendors('catering')">Main Catering</button>
+        <button class="sub-btn" onclick="filterVendors('teacoffee')">Tea & Coffee</button>
+        <button class="sub-btn" onclick="filterVendors('panipuri')">Chaat & Pani Puri</button>
+        <button class="sub-btn" onclick="filterVendors('watersupply')">Water Supply</button>
+        <button class="sub-btn" onclick="filterVendors('cake')">Wedding Cakes</button>
+    </div>
+    <div id="sub-media" class="sub-cats-area">
+        <button class="sub-btn" onclick="filterVendors('photo')">Photography</button>
+        <button class="sub-btn" onclick="filterVendors('drone')">Drone Video</button>
+        <button class="sub-btn" onclick="filterVendors('cards')">Wedding Cards</button>
+    </div>
+    <div id="sub-transport" class="sub-cats-area">
+        <button class="sub-btn" onclick="filterVendors('vintage')">Vintage Cars</button>
+        <button class="sub-btn" onclick="filterVendors('bus')">Buses</button>
+        <button class="sub-btn" onclick="filterVendors('horse')">Horses/Baggi</button>
+    </div>
+    <div id="sub-rentals" class="sub-cats-area">
+        <button class="sub-btn" onclick="filterVendors('vessels')">Vessels & Utensils</button>
+        <button class="sub-btn" onclick="filterVendors('chairs')">Chairs & Tables</button>
+        <button class="sub-btn" onclick="filterVendors('generator')">Generators</button>
+        <button class="sub-btn" onclick="filterVendors('props')">Costumes & Props</button>
+    </div>
+    </div>
+
+<div class="search-container">
+    <input type="text" id="searchInput" class="search-input" placeholder="Search by vendor name..." onkeyup="searchName()">
+</div>
+
+<section class="vendor-section">
+    <div class="vendors-grid" id="vendorList">
+        <div class="v-card" data-sub="cards" data-name="Belgaum Card Gallery">
+            <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=600">
+            <div class="v-info">
+                <span class="cat-pill">Wedding Cards</span>
+                <h3>Belgaum Card Gallery</h3>
+                <p>Exclusive laser-cut invitations and digital cards.</p>
+                <a href="#" class="contact-btn">View Portfolio</a>
+            </div>
+        </div>
+
+        <div class="v-card" data-sub="vessels" data-name="Kulkarni Rentals">
+            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=600">
+            <div class="v-info">
+                <span class="cat-pill">Rentals</span>
+                <h3>Kulkarni Rental Services</h3>
+                <p>Copper vessels and industrial kitchen equipment.</p>
+                <a href="#" class="contact-btn">Get Quote</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="concierge-wrap">
+    <div class="concierge-grid">
+        <div class="concierge-text">
+            <h2>Personal Wedding Concierge</h2>
+            <p>Can’t find exactly what you’re looking for? Our concierge team scouts the best unlisted vendors in Belgaum just for you.</p>
+            <ul class="trust-points">
+                <li>Direct access to premium, verified vendors</li>
+                <li>Negotiated wholesale rates for our users</li>
+                <li>Personalized support for unique items</li>
+                <li>Emergency backup service providers</li>
+            </ul>
+        </div>
+
+        <div class="concierge-form-card">
+            <h3>Share Your Requirements</h3>
+            <form id="luxuryForm" onsubmit="sendToWhatsApp(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="c_name" placeholder="e.g. Anand Patil" required>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="tel" id="c_phone" placeholder="+91 00000 00000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Event Date</label>
+                        <input type="date" id="c_date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Service Needed</label>
+                    <select id="c_service" required>
+                        <option value="">Choose a category...</option>
+                        <option value="Transport">Luxury/Vintage Transport</option>
+                        <option value="Legal">Marriage Certificate/Legal</option>
+                        <option value="Food">Specialized Food Stalls</option>
+                        <button class="sub-btn" onclick="filterVendors('hall')">Marriage Halls</button>
+                        <option value="Rentals">Rentals (Vessels/Chairs)</option>
+                        <option value="Other">Other Unique Needs</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Specific Details</label>
+                    <textarea id="c_details" rows="3" placeholder="Describe what you need..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit-luxury">Submit to Concierge</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 WEDDME BELGAUM • Professional Wedding Network</p>
+</footer>
+
+<script>
+function showSub(groupId, btn) {
+    document.querySelectorAll('.main-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.sub-cats-area').forEach(area => area.classList.remove('active'));
+    if(groupId !== 'all') {
+        const target = document.getElementById('sub-' + groupId);
+        if(target) target.classList.add('active');
+    } else { filterVendors('all'); }
+}
+
+function filterVendors(subId) {
+    const cards = document.querySelectorAll('.v-card');
+    cards.forEach(card => {
+        const cardSub = card.getAttribute('data-sub');
+        card.style.display = (subId === 'all' || cardSub === subId) ? 'block' : 'none';
+    });
+}
+
+function searchName() {
+    const term = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.v-card');
+    cards.forEach(card => {
+        const name = card.getAttribute('data-name').toLowerCase();
+        card.style.display = name.includes(term) ? 'block' : 'none';
+    });
+}
+
+// WhatsApp Integration Script
+function sendToWhatsApp(e) {
+    e.preventDefault();
+    const name = document.getElementById('c_name').value;
+    const phone = document.getElementById('c_phone').value;
+    const date = document.getElementById('c_date').value;
+    const service = document.getElementById('c_service').value;
+    const details = document.getElementById('c_details').value;
+
+    const message = `*WeddMe Concierge Inquiry*%0A--------------------------%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Date:* ${date}%0A*Service:* ${service}%0A*Details:* ${details}`;
+    
+    // Replace YOUR_NUMBER with your actual phone number (e.g., 919876543210)
+    window.open(`https://wa.me/919999999999?text=${message}`, '_blank');
+}
+</script>
+
+</body>
+</html>
